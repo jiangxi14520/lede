@@ -88,11 +88,14 @@ jobs:
           # 
 
           # 编译x64固件:
-          # cat >> .config <<EOF
-          # CONFIG_TARGET_x86=y
-          # CONFIG_TARGET_x86_64=y
-          # CONFIG_TARGET_x86_64_Generic=y
-          # EOF
+          cat >> .config <<EOF
+          CONFIG_TARGET_x86=y
+          CONFIG_TARGET_x86_64=y
+          CONFIG_TARGET_x86_64_Generic=y
+		  CONFIG_TARGET_Broadcom BCM27xx=y
+		  CONFIG_TARGET_BCM2709/BCM2710/BCM2711 boards (32 bit)=y
+		  CONFIG_TARGET_Raspberry Pi 2B/3B/3B+/3CM/4B=y
+          EOF
 
           # 固件压缩:
           # cat >> .config <<EOF
@@ -160,10 +163,10 @@ jobs:
           EOF
 
           # LuCI主题:
-          # cat >> .config <<EOF
-          # CONFIG_PACKAGE_luci-theme-argon=y
-          # CONFIG_PACKAGE_luci-theme-netgear=y
-          # EOF
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_luci-theme-argon=y
+          CONFIG_PACKAGE_luci-theme-material=y
+          EOF
 
           # 常用软件包:
           # cat >> .config <<EOF
