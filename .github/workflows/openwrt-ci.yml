@@ -92,15 +92,15 @@ jobs:
           CONFIG_TARGET_x86=y
           CONFIG_TARGET_x86_64=y
           CONFIG_TARGET_x86_64_Generic=y
-          CONFIG_TARGET_Broadcom BCM27xx=y
-          CONFIG_TARGET_BCM2709/BCM2710/BCM2711 boards (32 bit)=y
-          CONFIG_TARGET_Raspberry Pi 2B/3B/3B+/3CM/4B=y
           EOF
 
           # 固件压缩:
-          # cat >> .config <<EOF
-          # CONFIG_TARGET_IMAGES_GZIP=y
-          # EOF
+          cat >> .config <<EOF
+          CONFIG_TARGET_IMAGES_GZIP=y
+		  CONFIG_TARGET_VMDK_IMAGES=y
+		  CONFIG_TARGET_VDI_IMAGES=y
+		  CONFIG_TARGET_VHD_IMAGES=y
+          EOF
 
           # 编译UEFI固件:
           # cat >> .config <<EOF
@@ -160,6 +160,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-wireguard=y
           CONFIG_PACKAGE_luci-app-wol=y
           CONFIG_PACKAGE_luci-app-zerotier=y
+		  CONFIG_PACKAGE_python-pip=y
           EOF
 
           # LuCI主题:
