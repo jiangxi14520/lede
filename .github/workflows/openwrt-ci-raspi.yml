@@ -6,9 +6,7 @@
 # 
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
-
 name: OpenWrt-CI-raspi
-
 on:
   push:
     branches: 
@@ -17,20 +15,14 @@ on:
   #   - cron: 0 20 * * *
   # release:
   #   types: [published]
-
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-
       - name: Checkout
         uses: actions/checkout@master
         with:
           ref: master
-
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -43,28 +35,22 @@ jobs:
           sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
-
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-
       - name: Costom configure file
         run: |
           rm -f ./.config*
           touch ./.config
-
           #
           # ========================固件定制部分========================
           # 
-
           # 
           # 如果不对本区块做出任何编辑, 则生成默认配置固件. 
           # 
-
           # 以下为定制化固件选项和说明:
           #
-
           #
           # 有些插件/选项是默认开启的, 如果想要关闭, 请参照以下示例进行编写:
           # 
@@ -75,7 +61,6 @@ jobs:
           #         |  EOF                                    |
           #          =========================================
           #
-
           # 
           # 以下是一些提前准备好的一些插件选项.
           # 直接取消注释相应代码块即可应用. 不要取消注释代码块上的汉字说明.
@@ -86,7 +71,6 @@ jobs:
           # 
           # 无论你想要对固件进行怎样的定制, 都需要且只需要修改 EOF 回环内的内容.
           # 
-
           # 编译x64固件:
             #
             # Automatically generated file; DO NOT EDIT.
@@ -231,19 +215,16 @@ jobs:
             CONFIG_arm=y
             CONFIG_arm_v7=y
             CONFIG_ARCH="arm"
-
             #
             # Target Images
             #
             # CONFIG_TARGET_ROOTFS_INITRAMFS is not set
             CONFIG_EXTERNAL_CPIO=""
-
             #
             # Root filesystem archives
             #
             CONFIG_TARGET_ROOTFS_CPIOGZ=y
             CONFIG_TARGET_ROOTFS_TARGZ=y
-
             #
             # Root filesystem images
             #
@@ -259,13 +240,11 @@ jobs:
             CONFIG_TARGET_UBIFS_FREE_SPACE_FIXUP=y
             CONFIG_TARGET_UBIFS_JOURNAL_SIZE=""
             CONFIG_TARGET_IMAGES_GZIP=y
-
             #
             # Image Options
             #
             CONFIG_TARGET_KERNEL_PARTSIZE=64
             CONFIG_TARGET_ROOTFS_PARTSIZE=160
-
             #
             # Global build settings
             #
@@ -275,7 +254,6 @@ jobs:
             # CONFIG_ALL is not set
             # CONFIG_BUILDBOT is not set
             CONFIG_SIGNED_PACKAGES=y
-
             #
             # General build options
             #
@@ -286,7 +264,6 @@ jobs:
             # CONFIG_CLEAN_IPKG is not set
             # CONFIG_INCLUDE_CONFIG is not set
             # CONFIG_COLLECT_KERNEL_DEBUG is not set
-
             #
             # Kernel build options
             #
@@ -375,7 +352,6 @@ jobs:
             CONFIG_KERNEL_IPV6_MROUTE=y
             # CONFIG_KERNEL_IPV6_PIMSM_V2 is not set
             # CONFIG_KERNEL_IP_PNP is not set
-
             #
             # Filesystem ACL and attr support options
             #
@@ -401,13 +377,11 @@ jobs:
             CONFIG_KERNEL_SQUASHFS_FRAGMENT_CACHE_SIZE=3
             CONFIG_KERNEL_CC_OPTIMIZE_FOR_PERFORMANCE=y
             # CONFIG_KERNEL_CC_OPTIMIZE_FOR_SIZE is not set
-
             #
             # Package build options
             #
             # CONFIG_DEBUG is not set
             CONFIG_IPV6=y
-
             #
             # Stripping options
             #
@@ -418,7 +392,6 @@ jobs:
             # CONFIG_USE_MKLIBS is not set
             CONFIG_USE_UCLIBCXX=y
             # CONFIG_USE_LIBSTDCXX is not set
-
             #
             # Hardening build options
             #
@@ -491,7 +464,6 @@ jobs:
             CONFIG_FEED_packages=y
             CONFIG_FEED_luci=y
             CONFIG_FEED_routing=y
-
             #
             # Base system
             #
@@ -1553,7 +1525,6 @@ jobs:
             # CONFIG_PACKAGE_dnsmasq_full_noid is not set
             # CONFIG_PACKAGE_dnsmasq_full_broken_rtc is not set
             CONFIG_PACKAGE_dropbear=y
-
             #
             # Configuration
             #
@@ -1583,7 +1554,6 @@ jobs:
             CONFIG_PACKAGE_openwrt-keyring=y
             CONFIG_PACKAGE_opkg=y
             CONFIG_PACKAGE_procd=y
-
             #
             # Configuration
             #
@@ -1609,11 +1579,9 @@ jobs:
             CONFIG_PACKAGE_usign=y
             # CONFIG_PACKAGE_wireless-tools is not set
             # CONFIG_PACKAGE_zram-swap is not set
-
             #
             # Administration
             #
-
             #
             # openwisp
             #
@@ -1621,7 +1589,6 @@ jobs:
             # CONFIG_PACKAGE_openwisp-config-mbedtls is not set
             # CONFIG_PACKAGE_openwisp-config-nossl is not set
             # CONFIG_PACKAGE_openwisp-config-openssl is not set
-
             #
             # zabbix
             #
@@ -1640,16 +1607,13 @@ jobs:
             CONFIG_PACKAGE_netdata=y
             # CONFIG_PACKAGE_sudo is not set
             # CONFIG_PACKAGE_syslog-ng is not set
-
             #
             # Boot Loaders
             #
             CONFIG_PACKAGE_brcm2708-gpu-fw=y
-
             #
             # Development
             #
-
             #
             # Libraries
             #
@@ -1676,7 +1640,6 @@ jobs:
             # CONFIG_PACKAGE_trace-cmd is not set
             # CONFIG_PACKAGE_trace-cmd-extra is not set
             # CONFIG_PACKAGE_valgrind is not set
-
             #
             # Extra packages
             #
@@ -1684,11 +1647,9 @@ jobs:
             # CONFIG_PACKAGE_autosamba is not set
             # CONFIG_PACKAGE_ipv6helper is not set
             # CONFIG_PACKAGE_k3wifi is not set
-
             #
             # Firmware
             #
-
             #
             # ath10k IPQ4019 Boarddata
             #
@@ -1797,11 +1758,9 @@ jobs:
             CONFIG_PACKAGE_wireless-regdb=y
             # CONFIG_PACKAGE_wl12xx-firmware is not set
             # CONFIG_PACKAGE_wl18xx-firmware is not set
-
             #
             # Fonts
             #
-
             #
             # DejaVu
             #
@@ -1827,11 +1786,9 @@ jobs:
             # CONFIG_PACKAGE_dejavu-fonts-ttf-DejaVuSerifCondensed-Bold is not set
             # CONFIG_PACKAGE_dejavu-fonts-ttf-DejaVuSerifCondensed-BoldItalic is not set
             # CONFIG_PACKAGE_dejavu-fonts-ttf-DejaVuSerifCondensed-Italic is not set
-
             #
             # Kernel modules
             #
-
             #
             # Block Devices
             #
@@ -1848,12 +1805,10 @@ jobs:
             # CONFIG_PACKAGE_kmod-scsi-core is not set
             # CONFIG_PACKAGE_kmod-scsi-generic is not set
             # CONFIG_PACKAGE_kmod-scsi-tape is not set
-
             #
             # CAN Support
             #
             # CONFIG_PACKAGE_kmod-can is not set
-
             #
             # Cryptographic API modules
             #
@@ -1904,7 +1859,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-crypto-xcbc is not set
             # CONFIG_PACKAGE_kmod-crypto-xts is not set
             CONFIG_PACKAGE_kmod-cryptodev=y
-
             #
             # Filesystems
             #
@@ -1939,24 +1893,20 @@ jobs:
             CONFIG_PACKAGE_kmod-fs-vfat=y
             # CONFIG_PACKAGE_kmod-fs-xfs is not set
             # CONFIG_PACKAGE_kmod-fuse is not set
-
             #
             # FireWire support
             #
             # CONFIG_PACKAGE_kmod-firewire is not set
-
             #
             # Hardware Monitoring Support
             #
             # CONFIG_PACKAGE_kmod-hwmon-core is not set
             # CONFIG_PACKAGE_kmod-hwmon-rpi-poe-fan is not set
-
             #
             # I2C support
             #
             # CONFIG_PACKAGE_kmod-i2c-bcm2835 is not set
             # CONFIG_PACKAGE_kmod-i2c-core is not set
-
             #
             # Industrial I/O Modules
             #
@@ -1976,7 +1926,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-iio-htu21 is not set
             # CONFIG_PACKAGE_kmod-iio-si7020 is not set
             # CONFIG_PACKAGE_kmod-iio-tsl4531 is not set
-
             #
             # Input modules
             #
@@ -1992,7 +1941,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-input-polldev is not set
             # CONFIG_PACKAGE_kmod-input-touchscreen-ads7846 is not set
             # CONFIG_PACKAGE_kmod-input-uinput is not set
-
             #
             # LED modules
             #
@@ -2005,7 +1953,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-ledtrig-oneshot is not set
             # CONFIG_PACKAGE_kmod-ledtrig-timer is not set
             # CONFIG_PACKAGE_kmod-ledtrig-transient is not set
-
             #
             # Libraries
             #
@@ -2020,7 +1967,6 @@ jobs:
             CONFIG_PACKAGE_kmod-lib-textsearch=y
             CONFIG_PACKAGE_kmod-lib-zlib-deflate=y
             CONFIG_PACKAGE_kmod-lib-zlib-inflate=y
-
             #
             # Native Language Support
             #
@@ -2045,7 +1991,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-nls-iso8859-8 is not set
             # CONFIG_PACKAGE_kmod-nls-koi8r is not set
             CONFIG_PACKAGE_kmod-nls-utf8=y
-
             #
             # Netfilter Extensions
             #
@@ -2136,7 +2081,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-nft-nat6 is not set
             # CONFIG_PACKAGE_kmod-nft-netdev is not set
             # CONFIG_PACKAGE_kmod-nft-offload is not set
-
             #
             # Network Devices
             #
@@ -2203,7 +2147,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-via-rhine is not set
             # CONFIG_PACKAGE_kmod-via-velocity is not set
             # CONFIG_PACKAGE_kmod-vmxnet3 is not set
-
             #
             # Network Support
             #
@@ -2275,7 +2218,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-vxlan is not set
             # CONFIG_PACKAGE_kmod-wireguard is not set
             # CONFIG_PACKAGE_kmod-xfrm-interface is not set
-
             #
             # Other modules
             #
@@ -2343,11 +2285,9 @@ jobs:
             # CONFIG_PACKAGE_kmod-w83627hf-wdt is not set
             # CONFIG_PACKAGE_kmod-wifidog-ng is not set
             # CONFIG_PACKAGE_kmod-zram is not set
-
             #
             # PCMCIA support
             #
-
             #
             # SPI Support
             #
@@ -2357,7 +2297,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-spi-bitbang is not set
             # CONFIG_PACKAGE_kmod-spi-dev is not set
             # CONFIG_PACKAGE_kmod-spi-gpio is not set
-
             #
             # Sound Support
             #
@@ -2375,7 +2314,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-sound-soc-core is not set
             # CONFIG_PACKAGE_kmod-sound-via82xx is not set
             # CONFIG_PACKAGE_kmod-usb-audio is not set
-
             #
             # USB Support
             #
@@ -2413,7 +2351,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-usbip-client is not set
             # CONFIG_PACKAGE_kmod-usbip-server is not set
             # CONFIG_PACKAGE_kmod-usbmon is not set
-
             #
             # Video Support
             #
@@ -2430,20 +2367,16 @@ jobs:
             # CONFIG_PACKAGE_kmod-fb-tft-ili9486 is not set
             # CONFIG_PACKAGE_kmod-video-core is not set
             # CONFIG_PACKAGE_kmod-drm-vc4 is not set
-
             #
             # Virtualization
             #
-
             #
             # Voice over IP
             #
-
             #
             # W1 support
             #
             # CONFIG_PACKAGE_kmod-w1 is not set
-
             #
             # WPAN 802.15.4 Support
             #
@@ -2455,7 +2388,6 @@ jobs:
             # CONFIG_PACKAGE_kmod-ieee802154_6lowpan is not set
             # CONFIG_PACKAGE_kmod-mac802154 is not set
             # CONFIG_PACKAGE_kmod-mrf24j40 is not set
-
             #
             # Wireless Drivers
             #
@@ -2538,11 +2470,9 @@ jobs:
             # CONFIG_PACKAGE_kmod-wlcore is not set
             # CONFIG_PACKAGE_kmod-zd1211rw is not set
             # CONFIG_PACKAGE_wifi-l1profile is not set
-
             #
             # Languages
             #
-
             #
             # Erlang
             #
@@ -2558,7 +2488,6 @@ jobs:
             # CONFIG_PACKAGE_erlang-ssh is not set
             # CONFIG_PACKAGE_erlang-ssl is not set
             # CONFIG_PACKAGE_erlang-syntax-tools is not set
-
             #
             # Go
             #
@@ -2573,12 +2502,10 @@ jobs:
             # CONFIG_PACKAGE_golang-golang-x-text-dev is not set
             # CONFIG_PACKAGE_golang-src is not set
             # CONFIG_PACKAGE_golang-torproject-pluggable-transports-goptlib-dev is not set
-
             #
             # Java
             #
             # CONFIG_PACKAGE_jamvm is not set
-
             #
             # Lua
             #
@@ -2625,7 +2552,6 @@ jobs:
             # CONFIG_PACKAGE_luv is not set
             # CONFIG_PACKAGE_lzmq is not set
             # CONFIG_PACKAGE_uuid is not set
-
             #
             # Node.js
             #
@@ -2640,17 +2566,14 @@ jobs:
             # CONFIG_PACKAGE_node-mozilla-iot-gateway is not set
             # CONFIG_PACKAGE_node-npm is not set
             # CONFIG_PACKAGE_node-serialport is not set
-
             #
             # PHP
             #
             # CONFIG_PACKAGE_php7 is not set
-
             #
             # Perl
             #
             # CONFIG_PACKAGE_perl is not set
-
             #
             # Python
             #
@@ -2751,7 +2674,6 @@ jobs:
             # CONFIG_PACKAGE_python-lib2to3 is not set
             # CONFIG_PACKAGE_python-lib2to3-src is not set
             CONFIG_PACKAGE_python-light=y
-
             #
             # Configuration
             #
@@ -2975,7 +2897,6 @@ jobs:
             # CONFIG_PACKAGE_python3-lib2to3 is not set
             # CONFIG_PACKAGE_python3-lib2to3-src is not set
             # CONFIG_PACKAGE_python3-light is not set
-
             #
             # Configuration
             #
@@ -3109,21 +3030,17 @@ jobs:
             # CONFIG_PACKAGE_python3-zipp-src is not set
             # CONFIG_PACKAGE_python3-zope-interface is not set
             # CONFIG_PACKAGE_python3-zope-interface-src is not set
-
             #
             # Ruby
             #
             # CONFIG_PACKAGE_ruby is not set
-
             #
             # Tcl
             #
             # CONFIG_PACKAGE_vala is not set
-
             #
             # Libraries
             #
-
             #
             # Compression
             #
@@ -3132,7 +3049,6 @@ jobs:
             # CONFIG_PACKAGE_libunrar is not set
             # CONFIG_PACKAGE_libzstd is not set
             CONFIG_ZSTD_OPTIMIZE_O3=y
-
             #
             # Filesystem
             #
@@ -3142,7 +3058,6 @@ jobs:
             # CONFIG_PACKAGE_libow is not set
             # CONFIG_PACKAGE_libow-capi is not set
             # CONFIG_PACKAGE_libsysfs is not set
-
             #
             # Firewall
             #
@@ -3152,12 +3067,10 @@ jobs:
             # CONFIG_PACKAGE_libiptc is not set
             CONFIG_PACKAGE_libxtables=y
             # CONFIG_PACKAGE_libxtables-nft is not set
-
             #
             # Instant Messaging
             #
             # CONFIG_PACKAGE_quasselc is not set
-
             #
             # IoT
             #
@@ -3271,12 +3184,10 @@ jobs:
             # CONFIG_PACKAGE_libupm-wt5001 is not set
             # CONFIG_PACKAGE_libupm-yg1006 is not set
             # CONFIG_PACKAGE_libupm-zfm20 is not set
-
             #
             # Languages
             #
             # CONFIG_PACKAGE_libyaml is not set
-
             #
             # Networking
             #
@@ -3293,21 +3204,18 @@ jobs:
             # CONFIG_PACKAGE_libuwsc-nossl is not set
             # CONFIG_PACKAGE_libuwsc-openssl is not set
             # CONFIG_PACKAGE_libuwsc-wolfssl is not set
-
             #
             # Qt5
             #
             # CONFIG_PACKAGE_qt5-core is not set
             # CONFIG_PACKAGE_qt5-network is not set
             # CONFIG_PACKAGE_qt5-xml is not set
-
             #
             # SSL
             #
             # CONFIG_PACKAGE_libgnutls is not set
             CONFIG_PACKAGE_libmbedtls=y
             CONFIG_PACKAGE_libopenssl=y
-
             #
             # Build Options
             #
@@ -3316,7 +3224,6 @@ jobs:
             CONFIG_OPENSSL_WITH_DEPRECATED=y
             # CONFIG_OPENSSL_NO_DEPRECATED is not set
             CONFIG_OPENSSL_WITH_ERROR_MESSAGES=y
-
             #
             # Protocol Support
             #
@@ -3325,7 +3232,6 @@ jobs:
             # CONFIG_OPENSSL_WITH_NPN is not set
             CONFIG_OPENSSL_WITH_SRP=y
             CONFIG_OPENSSL_WITH_CMS=y
-
             #
             # Algorithm Selection
             #
@@ -3333,7 +3239,6 @@ jobs:
             CONFIG_OPENSSL_WITH_CHACHA_POLY1305=y
             CONFIG_OPENSSL_PREFER_CHACHA_OVER_GCM=y
             CONFIG_OPENSSL_WITH_PSK=y
-
             #
             # Less commonly used build options
             #
@@ -3347,7 +3252,6 @@ jobs:
             # CONFIG_OPENSSL_WITH_WHIRLPOOL is not set
             # CONFIG_OPENSSL_WITH_COMPRESSION is not set
             # CONFIG_OPENSSL_WITH_RFC3779 is not set
-
             #
             # Engine/Hardware Support
             #
@@ -3360,18 +3264,15 @@ jobs:
             # CONFIG_PACKAGE_libopenssl1.1 is not set
             # CONFIG_PACKAGE_libpolarssl is not set
             # CONFIG_PACKAGE_libwolfssl is not set
-
             #
             # Sound
             #
             # CONFIG_PACKAGE_liblo is not set
-
             #
             # database
             #
             # CONFIG_PACKAGE_libpq is not set
             CONFIG_PACKAGE_libsqlite3=y
-
             #
             # Configuration
             #
@@ -3382,7 +3283,6 @@ jobs:
             # CONFIG_PACKAGE_psqlodbcw is not set
             # CONFIG_PACKAGE_tdb is not set
             # CONFIG_PACKAGE_unixodbc is not set
-
             #
             # libelektra
             #
@@ -3411,11 +3311,9 @@ jobs:
             # CONFIG_boost-context-exclude is not set
             # CONFIG_boost-coroutine-exclude is not set
             # CONFIG_boost-fiber-exclude is not set
-
             #
             # Select Boost Options
             #
-
             #
             # Boost compilation options.
             #
@@ -3430,11 +3328,9 @@ jobs:
             # CONFIG_boost-variant-debug is not set
             # CONFIG_boost-variant-profile is not set
             # CONFIG_boost-use-name-tags is not set
-
             #
             # Select Boost libraries
             #
-
             #
             # Libraries
             #
@@ -3514,7 +3410,6 @@ jobs:
             # CONFIG_PACKAGE_libconfig is not set
             # CONFIG_PACKAGE_libcryptopp is not set
             CONFIG_PACKAGE_libcurl=y
-
             #
             # SSL support
             #
@@ -3523,7 +3418,6 @@ jobs:
             CONFIG_LIBCURL_OPENSSL=y
             # CONFIG_LIBCURL_GNUTLS is not set
             # CONFIG_LIBCURL_NOSSL is not set
-
             #
             # Supported protocols
             #
@@ -3543,7 +3437,6 @@ jobs:
             # CONFIG_LIBCURL_TELNET is not set
             # CONFIG_LIBCURL_TFTP is not set
             # CONFIG_LIBCURL_NGHTTP2 is not set
-
             #
             # Miscellaneous
             #
@@ -3738,7 +3631,6 @@ jobs:
             # CONFIG_PACKAGE_libsoc is not set
             # CONFIG_PACKAGE_libsocks is not set
             CONFIG_PACKAGE_libsodium=y
-
             #
             # Configuration
             #
@@ -3835,28 +3727,23 @@ jobs:
             # CONFIG_PACKAGE_xmlrpc-c-server is not set
             # CONFIG_PACKAGE_yajl is not set
             CONFIG_PACKAGE_zlib=y
-
             #
             # Configuration
             #
             # CONFIG_ZLIB_OPTIMIZE_SPEED is not set
-
             #
             # LuCI
             #
-
             #
             # 1. Collections
             #
             CONFIG_PACKAGE_luci=y
             # CONFIG_PACKAGE_luci-ssl-openssl is not set
-
             #
             # 2. Modules
             #
             CONFIG_PACKAGE_luci-base=y
             CONFIG_LUCI_SRCDIET=y
-
             #
             # Translations
             #
@@ -3891,7 +3778,6 @@ jobs:
             # CONFIG_PACKAGE_luci-mod-freifunk is not set
             # CONFIG_PACKAGE_luci-mod-freifunk-community is not set
             # CONFIG_PACKAGE_luci-mod-rpc is not set
-
             #
             # 3. Applications
             #
@@ -4018,7 +3904,6 @@ jobs:
             # CONFIG_PACKAGE_luci-app-wrtbwmon is not set
             # CONFIG_PACKAGE_luci-app-xlnetacc is not set
             # CONFIG_PACKAGE_luci-app-zerotier is not set
-
             #
             # 4. Themes
             #
@@ -4026,7 +3911,6 @@ jobs:
             CONFIG_PACKAGE_luci-theme-bootstrap=y
             CONFIG_PACKAGE_luci-theme-material=y
             # CONFIG_PACKAGE_luci-theme-netgear is not set
-
             #
             # 5. Protocols
             #
@@ -4041,7 +3925,6 @@ jobs:
             # CONFIG_PACKAGE_luci-proto-relay is not set
             # CONFIG_PACKAGE_luci-proto-vpnc is not set
             # CONFIG_PACKAGE_luci-proto-wireguard is not set
-
             #
             # 6. Libraries
             #
@@ -4056,7 +3939,6 @@ jobs:
             # CONFIG_PACKAGE_luci-lib-luaneightbl is not set
             CONFIG_PACKAGE_luci-lib-nixio=y
             # CONFIG_PACKAGE_luci-lib-px5g is not set
-
             #
             # 9. Freifunk
             #
@@ -4207,7 +4089,6 @@ jobs:
             # CONFIG_PACKAGE_luci-i18n-wol-vi is not set
             CONFIG_PACKAGE_luci-i18n-wol-zh-cn=y
             # CONFIG_PACKAGE_luci-i18n-wol-zh-tw is not set
-
             #
             # Mail
             #
@@ -4231,7 +4112,6 @@ jobs:
             # CONFIG_PACKAGE_opendkim is not set
             # CONFIG_PACKAGE_opendkim-tools is not set
             # CONFIG_PACKAGE_postfix is not set
-
             #
             # Select postfix build options
             #
@@ -4245,11 +4125,9 @@ jobs:
             CONFIG_POSTFIX_PCRE=y
             # CONFIG_POSTFIX_EAI is not set
             # CONFIG_PACKAGE_ssmtp is not set
-
             #
             # Multimedia
             #
-
             #
             # Streaming
             #
@@ -4279,11 +4157,9 @@ jobs:
             # CONFIG_PACKAGE_vips is not set
             # CONFIG_PACKAGE_xupnpd is not set
             # CONFIG_PACKAGE_youtube-dl is not set
-
             #
             # Network
             #
-
             #
             # BitTorrent
             #
@@ -4298,7 +4174,6 @@ jobs:
             # CONFIG_PACKAGE_transmission-remote-openssl is not set
             # CONFIG_PACKAGE_transmission-web is not set
             # CONFIG_PACKAGE_transmission-web-control is not set
-
             #
             # Captive Portals
             #
@@ -4310,14 +4185,12 @@ jobs:
             # CONFIG_PACKAGE_wifidog-ng-openssl is not set
             # CONFIG_PACKAGE_wifidog-ng-wolfssl is not set
             # CONFIG_PACKAGE_wifidog-tls is not set
-
             #
             # Download Manager
             #
             # CONFIG_PACKAGE_ariang is not set
             # CONFIG_PACKAGE_webui-aria2 is not set
             # CONFIG_PACKAGE_yaaw is not set
-
             #
             # File Transfer
             #
@@ -4336,7 +4209,6 @@ jobs:
             # CONFIG_PACKAGE_vsftpd-tls is not set
             CONFIG_PACKAGE_wget=y
             CONFIG_PACKAGE_wget-nossl=y
-
             #
             # Filesystem
             #
@@ -4348,7 +4220,6 @@ jobs:
             # CONFIG_PACKAGE_owhttpd is not set
             # CONFIG_PACKAGE_owserver is not set
             # CONFIG_PACKAGE_sshfs is not set
-
             #
             # Firewall
             #
@@ -4419,20 +4290,17 @@ jobs:
             # CONFIG_PACKAGE_shorewall6 is not set
             # CONFIG_PACKAGE_shorewall6-lite is not set
             # CONFIG_PACKAGE_snort is not set
-
             #
             # Firewall Tunnel
             #
             # CONFIG_PACKAGE_iodine is not set
             # CONFIG_PACKAGE_iodined is not set
-
             #
             # FreeRADIUS (version 3)
             #
             # CONFIG_PACKAGE_freeradius3 is not set
             # CONFIG_PACKAGE_freeradius3-common is not set
             # CONFIG_PACKAGE_freeradius3-utils is not set
-
             #
             # IP Addresses and Names
             #
@@ -4505,7 +4373,6 @@ jobs:
             # CONFIG_PACKAGE_unbound-host is not set
             # CONFIG_PACKAGE_wsdd2 is not set
             # CONFIG_PACKAGE_zonestitcher is not set
-
             #
             # Instant Messaging
             #
@@ -4518,7 +4385,6 @@ jobs:
             # CONFIG_PACKAGE_umurmur-mbedtls is not set
             # CONFIG_PACKAGE_umurmur-openssl is not set
             # CONFIG_PACKAGE_znc is not set
-
             #
             # Linux ATM tools
             #
@@ -4548,7 +4414,6 @@ jobs:
             # CONFIG_PACKAGE_atm-ttcp_atm is not set
             # CONFIG_PACKAGE_atm-zeppelin is not set
             # CONFIG_PACKAGE_br2684ctl is not set
-
             #
             # NMAP Suite
             #
@@ -4558,19 +4423,16 @@ jobs:
             # CONFIG_PACKAGE_nmap is not set
             # CONFIG_PACKAGE_nmap-ssl is not set
             # CONFIG_PACKAGE_nping is not set
-
             #
             # NTRIP
             #
             # CONFIG_PACKAGE_ntripcaster is not set
             # CONFIG_PACKAGE_ntripclient is not set
             # CONFIG_PACKAGE_ntripserver is not set
-
             #
             # NeteaseMusic
             #
             CONFIG_PACKAGE_UnblockNeteaseMusic=y
-
             #
             # OLSR.org network framework
             #
@@ -4578,7 +4440,6 @@ jobs:
             # CONFIG_PACKAGE_oonf-dlep-radio is not set
             # CONFIG_PACKAGE_oonf-init-scripts is not set
             # CONFIG_PACKAGE_oonf-olsrd2 is not set
-
             #
             # Open vSwitch
             #
@@ -4587,19 +4448,16 @@ jobs:
             # CONFIG_PACKAGE_openvswitch-ovn-north is not set
             # CONFIG_PACKAGE_openvswitch-python is not set
             # CONFIG_PACKAGE_openvswitch-python3 is not set
-
             #
             # P2P
             #
             # CONFIG_PACKAGE_amule is not set
             CONFIG_AMULE_CRYPTOPP_STATIC_LINKING=y
             # CONFIG_PACKAGE_antileech is not set
-
             #
             # Printing
             #
             # CONFIG_PACKAGE_p910nd is not set
-
             #
             # Routing and Redirection
             #
@@ -4644,7 +4502,6 @@ jobs:
             CONFIG_PACKAGE_tc=y
             # CONFIG_PACKAGE_tcpproxy is not set
             # CONFIG_PACKAGE_vis is not set
-
             #
             # SSH
             #
@@ -4659,7 +4516,6 @@ jobs:
             # CONFIG_PACKAGE_openssh-sftp-client is not set
             # CONFIG_PACKAGE_openssh-sftp-server is not set
             # CONFIG_PACKAGE_sshtunnel is not set
-
             #
             # THC-IPv6 attack and analyzing toolkit
             #
@@ -4715,7 +4571,6 @@ jobs:
             # CONFIG_PACKAGE_thc-ipv6-thcping6 is not set
             # CONFIG_PACKAGE_thc-ipv6-toobig6 is not set
             # CONFIG_PACKAGE_thc-ipv6-trace6 is not set
-
             #
             # Time Synchronization
             #
@@ -4727,7 +4582,6 @@ jobs:
             # CONFIG_PACKAGE_ntpclient is not set
             # CONFIG_PACKAGE_ntpd is not set
             # CONFIG_PACKAGE_ntpdate is not set
-
             #
             # VPN
             #
@@ -4764,7 +4618,6 @@ jobs:
             # CONFIG_PACKAGE_softethervpn5-server is not set
             # CONFIG_PACKAGE_sstp-client is not set
             CONFIG_PACKAGE_strongswan=y
-
             #
             # Configuration
             #
@@ -4865,7 +4718,6 @@ jobs:
             # CONFIG_PACKAGE_wireguard-tools is not set
             # CONFIG_PACKAGE_xl2tpd is not set
             # CONFIG_PACKAGE_zerotier is not set
-
             #
             # Version Control Systems
             #
@@ -4875,7 +4727,6 @@ jobs:
             # CONFIG_PACKAGE_subversion-client is not set
             # CONFIG_PACKAGE_subversion-libs is not set
             # CONFIG_PACKAGE_subversion-server is not set
-
             #
             # WWAN
             #
@@ -4884,7 +4735,6 @@ jobs:
             # CONFIG_PACKAGE_comgt-directip is not set
             # CONFIG_PACKAGE_comgt-ncm is not set
             # CONFIG_PACKAGE_uqmi is not set
-
             #
             # Web Servers/Proxies
             #
@@ -4926,14 +4776,12 @@ jobs:
             CONFIG_PACKAGE_uhttpd-mod-ubus=y
             # CONFIG_PACKAGE_uwsgi-cgi is not set
             # CONFIG_PACKAGE_uwsgi-cgi-luci-support is not set
-
             #
             # dial-in/up
             #
             # CONFIG_PACKAGE_rp-pppoe-common is not set
             # CONFIG_PACKAGE_rp-pppoe-relay is not set
             # CONFIG_PACKAGE_rp-pppoe-server is not set
-
             #
             # tcprelay
             #
@@ -4945,7 +4793,6 @@ jobs:
             # CONFIG_PACKAGE_tcpreplay-all is not set
             # CONFIG_PACKAGE_tcpreplay-edit is not set
             # CONFIG_PACKAGE_tcprewrite is not set
-
             #
             # wireless
             #
@@ -5104,7 +4951,6 @@ jobs:
             CONFIG_PACKAGE_odhcp6c_ext_cer_id=0
             # CONFIG_PACKAGE_odhcpd is not set
             CONFIG_PACKAGE_odhcpd-ipv6only=y
-
             #
             # Configuration
             #
@@ -5222,7 +5068,6 @@ jobs:
             # CONFIG_PACKAGE_wpan-tools is not set
             # CONFIG_PACKAGE_wwan is not set
             # CONFIG_PACKAGE_xinetd is not set
-
             #
             # Sound
             #
@@ -5263,17 +5108,14 @@ jobs:
             # CONFIG_PACKAGE_squeezelite-mini is not set
             # CONFIG_PACKAGE_svox is not set
             # CONFIG_PACKAGE_upmpdcli is not set
-
             #
             # Utilities
             #
-
             #
             # Boot Loaders
             #
             # CONFIG_PACKAGE_fconfig is not set
             # CONFIG_PACKAGE_uboot-envtools is not set
-
             #
             # Compression
             #
@@ -5285,12 +5127,10 @@ jobs:
             # CONFIG_PACKAGE_xz-utils is not set
             # CONFIG_PACKAGE_zip is not set
             # CONFIG_PACKAGE_zstd is not set
-
             #
             # Database
             #
             # CONFIG_PACKAGE_mariadb-common is not set
-
             #
             # Disc
             #
@@ -5313,7 +5153,6 @@ jobs:
             # CONFIG_PACKAGE_sfdisk is not set
             # CONFIG_PACKAGE_sgdisk is not set
             # CONFIG_PACKAGE_wipefs is not set
-
             #
             # Editors
             #
@@ -5325,7 +5164,6 @@ jobs:
             # CONFIG_PACKAGE_vim-help is not set
             # CONFIG_PACKAGE_vim-runtime is not set
             # CONFIG_PACKAGE_zile is not set
-
             #
             # Encryption
             #
@@ -5340,7 +5178,6 @@ jobs:
             # CONFIG_PACKAGE_px5g-mbedtls is not set
             # CONFIG_PACKAGE_px5g-standalone is not set
             # CONFIG_PACKAGE_stoken is not set
-
             #
             # Filesystem
             #
@@ -5381,20 +5218,17 @@ jobs:
             # CONFIG_PACKAGE_xfs-fsck is not set
             # CONFIG_PACKAGE_xfs-growfs is not set
             # CONFIG_PACKAGE_xfs-mkfs is not set
-
             #
             # Image Manipulation
             #
             # CONFIG_PACKAGE_jpeg-tools is not set
             # CONFIG_PACKAGE_tiff-utils is not set
-
             #
             # Microcontroller programming
             #
             # CONFIG_PACKAGE_avrdude is not set
             # CONFIG_PACKAGE_dfu-programmer is not set
             # CONFIG_PACKAGE_stm32flash is not set
-
             #
             # RTKLIB Suite
             #
@@ -5403,7 +5237,6 @@ jobs:
             # CONFIG_PACKAGE_rnx2rtkp is not set
             # CONFIG_PACKAGE_rtkrcv is not set
             # CONFIG_PACKAGE_str2str is not set
-
             #
             # Shells
             #
@@ -5412,7 +5245,6 @@ jobs:
             # CONFIG_PACKAGE_mksh is not set
             # CONFIG_PACKAGE_tcsh is not set
             # CONFIG_PACKAGE_zsh is not set
-
             #
             # Terminal
             #
@@ -5432,11 +5264,9 @@ jobs:
             # CONFIG_PACKAGE_tmux is not set
             # CONFIG_PACKAGE_ttyd is not set
             # CONFIG_PACKAGE_wall is not set
-
             #
             # Virtualization
             #
-
             #
             # Zoneinfo
             #
@@ -5452,7 +5282,6 @@ jobs:
             # CONFIG_PACKAGE_zoneinfo-poles is not set
             # CONFIG_PACKAGE_zoneinfo-simple is not set
             # CONFIG_PACKAGE_zoneinfo-southamerica is not set
-
             #
             # database
             #
@@ -5599,21 +5428,18 @@ jobs:
             # CONFIG_PACKAGE_digitemp-usb is not set
             # CONFIG_PACKAGE_dmesg is not set
             CONFIG_PACKAGE_docker-ce=y
-
             #
             # Kernel features for Docker
             #
             CONFIG_DOCKER_KERNEL_OPTIONS=y
             # CONFIG_DOCKER_SECCOMP is not set
             CONFIG_DOCKER_RES_SHAPE=y
-
             #
             # Network
             #
             # CONFIG_DOCKER_NET_OVERLAY is not set
             CONFIG_DOCKER_NET_MACVLAN=y
             # CONFIG_DOCKER_NET_TFTP is not set
-
             #
             # Storage
             #
@@ -5797,41 +5623,32 @@ jobs:
             # CONFIG_PACKAGE_yanglint is not set
             # CONFIG_PACKAGE_yara is not set
             # CONFIG_PACKAGE_yunbridge is not set
-
             #
             # Xorg
             #
-
             #
             # font-utils
             #
-            # CONFIG_PACKAGE_fontconfig is not set
-	
-          
+            # CONFIG_PACKAGE_fontconfig is not set	        
           # ========================固件定制部分结束========================
           # 
-
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
-
       - name: Make download
         run: |
           make download -j8
           find dl -size -1024c -exec ls -l {} \;
           find dl -size -1024c -exec rm -f {} \;
-
       - name: Compile firmware
         run: |
           echo -e "$(nproc) thread build."
           make -j$(nproc) V=s
-
       - name: Assemble artifact
         run: |
           rm -rf ./artifact/
           mkdir -p ./artifact/
           find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
           find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
-
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
