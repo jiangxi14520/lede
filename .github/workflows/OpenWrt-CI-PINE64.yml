@@ -12,9 +12,9 @@ name: OpenWrt-CI-PINE64
 on:
   push:
     branches: 
-     - master
-   schedule:
-     - cron: 0 20 * * *
+      - master
+  schedule:
+    - cron: 30 20 * * *
   # release:
   #   types: [published]
 
