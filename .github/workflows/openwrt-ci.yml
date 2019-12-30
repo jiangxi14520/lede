@@ -87,6 +87,7 @@ jobs:
 
           # 编译x64固件:
           cat >> .config <<EOF
+          CONFIG_PACKAGE_luci-app-smartdns=y
           CONFIG_MODULES=y
           CONFIG_HAVE_DOT_CONFIG=y
           CONFIG_TARGET_x86=y
